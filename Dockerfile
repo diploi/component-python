@@ -12,7 +12,7 @@ WORKDIR ${FOLDER}
 USER 1000:1000
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN DISPLAY= pip install --no-cache-dir -r requirements.txt
 
 # Production image, copy all the files and run "npm start"
 FROM base AS runner
@@ -20,12 +20,10 @@ FROM base AS runner
 COPY --from=deps --chown=1000:1000 /app /app
 WORKDIR ${FOLDER}
 
-ENV NODE_ENV=production
-
 USER 1000:1000
 
-EXPOSE 3000
-ENV PORT=3000
+EXPOSE 8000
+ENV PORT=8000
 ENV HOST="0.0.0.0"
 
 CMD ["python", "src/main.py"]
