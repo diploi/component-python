@@ -1,4 +1,4 @@
-FROM python:3 AS base
+FROM python:3-slim AS base
 
 # This will be set by the GitHub action to the folder containing this component.
 ARG FOLDER=/app
@@ -12,6 +12,7 @@ WORKDIR ${FOLDER}
 USER 1000:1000
 
 # Install dependencies
+# https://github.com/microsoft/WSL/issues/6643#issuecomment-963765350
 RUN DISPLAY= pip install --no-cache-dir -r requirements.txt
 
 # Production image, copy all the files and run "npm start"
