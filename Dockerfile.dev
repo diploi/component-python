@@ -1,15 +1,14 @@
+FROM python:3
+
 # This will be set by the GitHub action to the folder containing this component.
 ARG FOLDER=/app
 
-FROM python:3
-
-COPY . /app
+COPY --chown=1000:1000 . /app
 WORKDIR ${FOLDER}
 
 USER 1000:1000
 
 # Setup venv
-ARG FOLDER
 ENV VIRTUAL_ENV_FOLDER $FOLDER
 RUN python -m venv "$VIRTUAL_ENV_FOLDER/.venv"
 ENV PATH="$VIRTUAL_ENV_FOLDER/.venv/bin:$PATH"
