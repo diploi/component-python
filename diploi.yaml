@@ -1,0 +1,13 @@
+diploiVersion: v1.0
+type: component
+name: Python
+description: Official Python component for Diploi
+
+hosts:
+  - name: Python
+    identifier: app
+    urlFormat: '[label].[default-domain]'
+
+images:
+  - identifier: app
+    prebuildImage: ghcr.io/diploi/component-python:[tag]

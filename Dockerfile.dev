@@ -1,0 +1,20 @@
+# This will be set by the GitHub action to the folder containing this component.
+ARG FOLDER=/app
+
+FROM python:3
+
+COPY . /app
+WORKDIR ${FOLDER}
+
+USER 1000:1000
+
+# Setup venv
+ENV VIRTUAL_ENV=${FOLDER}/.venv
+RUN python -m venv "$VIRTUAL_ENV"
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+EXPOSE 3000
+ENV PORT=3000
+ENV HOST="0.0.0.0"
+
+CMD ["python", "src/main.py"]
