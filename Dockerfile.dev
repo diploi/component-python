@@ -10,7 +10,6 @@ USER 1000:1000
 
 # Setup venv
 ENV PATH="$FOLDER/.venv/bin:$PATH"
-ENV 
 
 EXPOSE 8000
 ENV PORT=8000
