@@ -23,7 +23,7 @@ RUN apk update \
     && npm install -g nodemon
 
 # Allow uv to use cache
-RUN mkdir /.cache && chown 1000:1000 /.cache
+RUN mkdir -p /.cache/uv && chown 1000:1000 /.cache /.cache/uv
 
 USER 1000:1000
 
