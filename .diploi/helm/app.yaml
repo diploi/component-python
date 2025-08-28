@@ -43,8 +43,8 @@ spec:
             - -c
             - |
               python -m venv .venv
-              direnv allow
-              pip install -r requirements.txt
+              source .venv/bin/activate
+              pip install --no-cache-dir -r requirements.txt
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
             - name: app-mount
