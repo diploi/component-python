@@ -39,7 +39,7 @@ spec:
           image: {{ .Values.images.app }}
           imagePullPolicy: Always
           command: ["uv"]
-          args: ["sync"]
+          args: ["sync", "--frozen", "--no-cache"]
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
             - name: app-mount
