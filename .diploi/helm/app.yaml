@@ -38,10 +38,13 @@ spec:
         - name: install-dependencies
           image: {{ .Values.images.app }}
           imagePullPolicy: Always
-          command: |
-            python -m venv .venv
-            direnv allow
-            pip install -r requirements.txt
+          command:
+            - /bin/sh
+            - -c
+            - |
+              python -m venv .venv
+              direnv allow
+              pip install -r requirements.txt
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
             - name: app-mount
