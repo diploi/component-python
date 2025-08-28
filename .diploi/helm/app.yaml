@@ -42,8 +42,6 @@ spec:
             - /bin/sh
             - -c
             - |
-              python --version
-              pip --version
               python -m venv .venv
               . ./.venv/bin/activate
               pip install --only-binary=:all: --no-cache-dir -r requirements.txt
