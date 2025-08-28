@@ -1,4 +1,4 @@
-FROM python:3-slim AS base
+FROM python:3.12-slim AS base
 
 # This will be set by the GitHub action to the folder containing this component.
 ARG FOLDER=/app
@@ -8,9 +8,6 @@ FROM base AS deps
 
 COPY . /app
 WORKDIR ${FOLDER}
-
-# Update pip
-RUN pip install --upgrade pip
 
 USER 1000:1000
 
