@@ -2,14 +2,14 @@
 
 # Python Component for Diploi
 
-Uses the official [python](https://hub.docker.com/_/python) Docker image.
+Uses [uv](https://docs.astral.sh/uv/) to manage Python versions & packages.
 
 ## Operation
 
 ### Development
 
-Will activate a virtual environment in `.venv` and run `pip install -r requirements.txt` when component is first initialized, and `python src/main.py` when deployment is started.
+Will activate a virtual environment in `.venv` and run `uv sync` when component is first initialized, and `python src/main.py` when deployment is started.
 
 ### Production
 
-Will build a production ready image. Image runs `pip install -r requirements.txt` when being created. Once the image runs, `python src/main.py` is called.
+Will build a production ready image. Image runs `uv sync` when being created. Once the image runs, `python src/main.py` is called.

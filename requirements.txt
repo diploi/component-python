@@ -1,3 +1,0 @@
---prefer-binary
-
-numpy==2.3.2

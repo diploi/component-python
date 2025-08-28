@@ -41,10 +41,7 @@ spec:
           command:
             - /bin/sh
             - -c
-            - |
-              python -m venv --copies .venv
-              . ./.venv/bin/activate
-              pip install --no-cache-dir -r requirements.txt
+            - uv sync
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
             - name: app-mount
