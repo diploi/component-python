@@ -9,6 +9,9 @@ FROM base AS deps
 COPY . /app
 WORKDIR ${FOLDER}
 
+# Update pip
+RUN pip install --upgrade pip
+
 USER 1000:1000
 
 # Install dependencies
