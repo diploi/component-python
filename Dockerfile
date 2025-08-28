@@ -1,4 +1,4 @@
-FROM arm64v8/python:3.13-slim AS base
+FROM python:3.13-slim AS base
 
 # This will be set by the GitHub action to the folder containing this component.
 ARG FOLDER=/app

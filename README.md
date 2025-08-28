@@ -2,7 +2,7 @@
 
 # Python Component for Diploi
 
-Uses the unofficial [arm64v8/python](https://hub.docker.com/r/arm64v8/python/) Docker image.
+Uses the official [python](https://hub.docker.com/_/python) Docker image.
 
 ## Operation
 
