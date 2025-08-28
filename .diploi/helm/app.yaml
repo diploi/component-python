@@ -38,10 +38,8 @@ spec:
         - name: install-dependencies
           image: {{ .Values.images.app }}
           imagePullPolicy: Always
-          command:
-            - /bin/sh
-            - -c
-            - uv sync
+          command: ["uv"]
+          args: ["sync"]
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
             - name: app-mount
