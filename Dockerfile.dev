@@ -21,13 +21,9 @@ ENV PATH="$FOLDER/.venv/bin:$PATH"
 
 # Install Node.js and nodemon for easy watch mode with Python
 USER root
-RUN apt-get update \
-    && apt-get install -y curl \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g nodemon \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk update \
+    && apk add nodejs npm \
+    && npm install -g nodemon
 
 USER 1000:1000
 
