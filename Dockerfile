@@ -9,19 +9,14 @@ FROM base AS deps
 COPY . /app
 WORKDIR ${FOLDER}
 
-USER 1000:1000
-
 # Install dependencies
-# https://github.com/microsoft/WSL/issues/6643#issuecomment-963765350
-RUN DISPLAY= pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Production image, copy all the files and run "npm start"
 FROM base AS runner
 
-COPY --from=deps --chown=1000:1000 /app /app
+COPY --from=deps /app /app
 WORKDIR ${FOLDER}
-
-USER 1000:1000
 
 EXPOSE 8000
 ENV PORT=8000
