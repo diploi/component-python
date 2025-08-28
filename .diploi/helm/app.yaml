@@ -41,8 +41,8 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
           - |
-            uv sync --frozen --no-cache && \
-            cp --remove-destination "$(readlink /app/{{ .Values.identifier }}/.venv//bin/python)" /app/{{ .Values.identifier }}/.venv/bin/python
+            uv sync --frozen --no-cache --link-mode=copy && \
+            cp --remove-destination "$(readlink /app/{{ .Values.identifier }}/.venv//bin/python)" /app/{{ .Values.identifier }}/.venv/bin/python 2>/dev/null || :
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
             - name: app-mount
