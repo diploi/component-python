@@ -44,7 +44,7 @@ spec:
             - |
               python -m venv --copies .venv
               . ./.venv/bin/activate
-              pip install --prefer-binary --no-cache-dir -r requirements.txt
+              pip install --no-cache-dir -r requirements.txt
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
             - name: app-mount
