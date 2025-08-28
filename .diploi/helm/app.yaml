@@ -38,8 +38,11 @@ spec:
         - name: install-dependencies
           image: {{ .Values.images.app }}
           imagePullPolicy: Always
-          command: ["uv"]
-          args: ["sync", "--frozen", "--no-cache"]
+          command: ["/bin/sh", "-c"]
+          args:
+          - |
+            uv sync --frozen --no-cache && \
+            cp --remove-destination "$(readlink /app/{{ .Values.identifier }}/.venv//bin/python)" /app/{{ .Values.identifier }}/.venv/bin/python
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
             - name: app-mount
