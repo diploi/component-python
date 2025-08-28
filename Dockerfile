@@ -10,7 +10,7 @@ COPY . /app
 WORKDIR ${FOLDER}
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --prefer-binary -r requirements.txt
 
 # Production image, copy all the files and run "npm start"
 FROM base AS runner
