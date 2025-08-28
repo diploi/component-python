@@ -43,7 +43,7 @@ spec:
             - -c
             - |
               python -m venv .venv
-              source .venv/bin/activate
+              . ./.venv/bin/activate
               pip install --no-cache-dir -r requirements.txt
           workingDir: /app/{{ .Values.identifier }}
           volumeMounts:
