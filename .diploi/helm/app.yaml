@@ -57,7 +57,7 @@ spec:
           ports:
             - containerPort: 8000
           {{- if eq .Values.stage "development" }}
-          command: ["/usr/local/bin/nodemon"]
+          command: ["/usr/bin/nodemon"]
           args: ["--exec", "/app/{{ .Values.identifier }}/.venv/bin/python src/main.py"]
           workingDir: /app/{{ .Values.identifier }}
           {{- end }}
