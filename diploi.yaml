@@ -3,11 +3,13 @@ type: component
 name: Python
 description: Official Python component for Diploi
 
+supportsAdditionalHosts: { serviceName: 'app'}
+
 hosts:
   - name: Python
     identifier: app
-    urlFormat: '[label].[default-domain]'
+    port: 8000
 
 images:
   - identifier: app
-    prebuildImage: ghcr.io/diploi/component-python:[tag]
+    prebuildImage: public.ecr.aws/p8t2q7f4/diploi/component-python:[tag]
