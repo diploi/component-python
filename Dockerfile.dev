@@ -32,4 +32,12 @@ ENV PORT=8000
 ENV HOST="0.0.0.0"
 
 ENTRYPOINT ["/usr/local/bin/nodemon"]
-CMD ["--delay", "1", "--exec", "uv", "run", "--isolated", "src/main.py"]
+
+CMD ["--delay", "1", \
+    "--watch", "pyproject.toml", \
+    "--watch", "requirements.txt", \
+    "--watch", ".venv/lib/*", \ 
+    "--watch", ".venv/lib64/*", \
+    "--watch", "src", \ 
+    "--ext", "py", \
+    "--exec", "sh -c 'if [ -f pyproject.toml ]; then uv run --isolated --with . src/main.py; elif [ -f requirements.txt ]; then uv run --isolated --with-requirements requirements.txt src/main.py; else uv run --isolated src/main.py; fi'"]
