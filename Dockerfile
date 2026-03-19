@@ -16,7 +16,15 @@ ENV UV_LINK_MODE=copy
 ENV UV_TOOL_BIN_DIR=/usr/local/bin
 
 COPY . /app
-RUN uv sync --locked --no-dev
+
+RUN if [ -f requirements.txt ]; then \
+    echo "requirements.txt found, installing dependencies with uv pip" && \
+    uv venv .venv --clear && \
+    uv pip install -r requirements.txt; \
+    else \
+    echo "Using uv sync for dependency installation" && \
+    uv sync --locked --no-dev; \
+    fi
 
 # Place executables in the environment at the front of the path
 ENV PATH="$FOLDER/.venv/bin:$PATH"

@@ -40,9 +40,19 @@ spec:
           imagePullPolicy: Always
           command: ["/bin/sh", "-c"]
           args:
-          - |
-            uv sync --frozen --no-cache --link-mode=copy && \
-            cp --remove-destination "$(readlink /app{{ .Values.folder }}/.venv/bin/python)" /app{{ .Values.folder }}/.venv/bin/python 2>/dev/null || :
+            - |
+              if [ -f pyproject.toml ]; then
+                echo "Pyproject.toml found, installing dependencies with uv" && \
+                uv sync --frozen --no-cache --link-mode=copy
+              elif [ -f requirements.txt ]; then
+                echo "requirements.txt found, installing dependencies with pip" && \
+                uv venv .venv --clear && \
+                uv pip install --python .venv/bin/python -r requirements.txt --link-mode=copy
+              else
+                echo "No dependency definition found" >&2
+                exit 1
+              fi && \
+              cp --remove-destination "$(readlink /app{{ .Values.folder }}/.venv/bin/python)" /app{{ .Values.folder }}/.venv/bin/python 2>/dev/null || :
           workingDir: /app{{ .Values.folder }}
           volumeMounts:
             - name: app-mount
@@ -55,7 +65,21 @@ spec:
           ports:
             - containerPort: 8000
           {{- if eq .Values.stage "development" }}
-          workingDir: /app{{ .Values.folder }}
+          {{- with .Values.containerCommands.developmentStart }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+          {{ . | nindent 14 }}
+          {{- end }}
+          {{- else }}
+          {{- with .Values.containerCommands.productionStart }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+          {{ . | nindent 14 }}
+          {{- end }}
           {{- end }}
           env:
             {{- range .Values.env }}
