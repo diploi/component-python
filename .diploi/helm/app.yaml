@@ -87,6 +87,9 @@ spec:
             - name: {{ .identifier }}
               value: {{ .value | quote }}
             {{- end }}
+          {{- if eq .Values.stage "development"}}
+          workingDir: /app{{ .Values.folder }}
+          {{- end }}
           volumeMounts:
             {{- if hasKey .Values.storage "code" }}
             - name: app-mount
