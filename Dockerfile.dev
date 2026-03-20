@@ -16,11 +16,6 @@ ENV UV_TOOL_BIN_DIR=/usr/local/bin
 # Place executables in the environment at the front of the path
 ENV PATH="$FOLDER/.venv/bin:$PATH"
 
-# Fix uv + non-root environment
-ENV HOME=/tmp
-ENV XDG_DATA_HOME=/tmp/.local/share
-ENV XDG_CACHE_HOME=/tmp/.cache
-
 USER root
 RUN apt-get update && apt-get install -y nodejs npm \
     && npm install -g nodemon \
@@ -44,4 +39,4 @@ CMD ["--delay", "1", \
     "--watch", ".venv/lib64/*", \
     "--watch", "src", \ 
     "--ext", "py", \
-    "--exec", "sh -c 'if [ -f pyproject.toml ]; then uv run --isolated --with . src/main.py; elif [ -f requirements.txt ]; then uv run --isolated --with-requirements requirements.txt src/main.py; else uv run --isolated src/main.py; fi'"]
+    "--exec", "sh -c 'if [ -f pyproject.toml ]; then uv run --isolated --with . python src/main.py; elif [ -f requirements.txt ]; then uv run --isolated --with-requirements requirements.txt python src/main.py; else uv run --isolated python src/main.py; fi'"]
