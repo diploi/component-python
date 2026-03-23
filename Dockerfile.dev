@@ -16,6 +16,11 @@ ENV UV_TOOL_BIN_DIR=/usr/local/bin
 # Place executables in the environment at the front of the path
 ENV PATH="$FOLDER/.venv/bin:$PATH"
 
+# Fix uv + non-root environment
+ENV HOME=/tmp
+ENV XDG_DATA_HOME=/tmp/.local/share
+ENV XDG_CACHE_HOME=/tmp/.cache
+
 USER root
 RUN apt-get update && apt-get install -y nodejs npm \
     && npm install -g nodemon \
