@@ -49,6 +49,9 @@ spec:
               elif [ -f requirements.txt ]; then
                 uv pip install -r requirements.txt
               fi
+              echo "Checking and Installing watchfiles if missing for live reloading in development..."
+              uv pip show --python .venv/bin/python watchfiles >/dev/null 2>&1 || \
+              uv pip install --python .venv/bin/python watchfiles --link-mode=copy
           env:
             - name: UV_PYTHON
               value: {{ ((.Values.envMap.PYTHON_VERSION).value | default "3.12") | quote }}

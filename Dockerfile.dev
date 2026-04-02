@@ -17,4 +17,4 @@ ENV PATH="$FOLDER/.venv/bin:$PATH"
 
 USER 1000:1000
 
-CMD ["uv", "run", "python", "src/main.py"] 
+CMD ["uv", "run", "watchfiles", "python", "src/main.py"] 
