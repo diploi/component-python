@@ -18,20 +18,20 @@
 
 ### Development
 
-During development, the container installs Node.js and `nodemon` to enable automatic reloads when files change. The development server is started with:
+During development, the container installs `watchfiles` to enable automatic reloads when files change. The development server is started with:
 
 ```sh
-nodemon --delay 1 --watch "pyproject.toml" --watch "requirements.txt" --watch ".venv/lib/*" --watch ".venv/lib64/*" --watch "src" --ext "py" --exec "sh -c 'if [ -f pyproject.toml ]; then uv run --isolated --with . src/main.py; elif [ -f requirements.txt ]; then uv run --isolated --with-requirements requirements.txt src/main.py; else uv run --isolated src/main.py; fi'"
+uv run watchfiles "python src/main.py"
 ```
 
 This will:
-- Use `nodemon` to watch for file changes and restart the server automatically.
+- Use `watchfiles` to watch for file changes and restart the server automatically.
 - Run `src/main.py` in an isolated Python environment managed by `uv`.
 - Automatically detect whether to use `pyproject.toml` or `requirements.txt` for dependency resolution.
 
 ### Production
 
-Builds a production-ready image. During the build, dependencies are installed with `uv sync`. When the container starts, it runs:
+Builds a production-ready image. During the build, dependencies are installed with `uv sync` or `uv pip install`. When the container starts, it runs:
 
 ```sh
 uv run --frozen src/main.py
